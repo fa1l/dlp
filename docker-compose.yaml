@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: "dlp"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  
+  # worker:
+  #   command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
+  #   environment:
+  #     - CELERY_BROKER_URL=redis://127.0.0.1:6379/0
+  #     - CELERY_RESULT_BACKEND=redis://127.0.0.1:6379/0
+  #   depends_on:
+  #     - redis
