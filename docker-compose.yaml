@@ -2,22 +2,61 @@ version: "3.9"
 services:
   postgres:
     image: postgres
+    container_name: dlp-postgres
     environment:
       POSTGRES_DB: "dlp"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
     ports:
-      - "5432:5432"
+      - '5432:5432'
 
   redis:
     image: redis
+    container_name: dlp-redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
   
-  # worker:
-  #   command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
-  #   environment:
-  #     - CELERY_BROKER_URL=redis://127.0.0.1:6379/0
-  #     - CELERY_RESULT_BACKEND=redis://127.0.0.1:6379/0
-  #   depends_on:
-  #     - redis
+  api:
+    image: dlp
+    build:
+      context: .
+    container_name: fastapi-application
+    entrypoint: /app/entrypoints/web.sh
+    env_file:
+      - dev.env
+    ports:
+      - '8000:8000'
+    depends_on:
+      - redis
+      - postgres
+
+  celery:
+    image: dlp
+    container_name: celery-worker
+    entrypoint: /app/entrypoints/celery.sh
+    env_file:
+      - dev.env
+    depends_on:
+      - redis
+      - postgres
+
+  migration_runner:
+    profiles: ["migration_runner"]
+    image: dlp
+    container_name: migration_runner
+    entrypoint: /app/entrypoints/migration_runner.sh
+    env_file:
+      - dev.env
+    depends_on:
+      - postgres
+
+  admin:
+    image: dlp
+    container_name: admin
+    entrypoint: /app/entrypoints/admin.sh
+    env_file:
+      - dev.env
+    ports:
+      - '8001:8001'
+    depends_on:
+      - postgres
