@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings
 
 
 class DBSettings(BaseSettings):
-    url: PostgresDsn = "postgresql://postgres:postgres@localhost:5432/dlp"
+    url: PostgresDsn
 
-    _env_prefix = "DB_"
+    class Config:
+        env_prefix = "DB_"

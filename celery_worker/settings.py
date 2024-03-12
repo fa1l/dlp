@@ -3,7 +3,8 @@ from pydantic_settings import BaseSettings
 
 
 class CelerySettings(BaseSettings):
-    broker_url: RedisDsn = "redis://127.0.0.1:6379"
-    result_backend: RedisDsn = "redis://127.0.0.1:6379"
+    broker_url: RedisDsn
+    result_backend: RedisDsn
 
-    _env_prefix = "CELERY_"
+    class Config:
+        env_prefix = "CELERY_"
