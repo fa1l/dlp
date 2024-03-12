@@ -5,4 +5,4 @@ from dependencies.container import create_container
 settings = DBSettings()
 container = create_container()
 app = create_admin(settings, container)
-app.run()
+app.run(host="0.0.0.0", port=8001)

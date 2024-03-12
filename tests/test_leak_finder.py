@@ -3,6 +3,7 @@ import pytest
 import re
 from leak_finder.regexp import RegexpLeakFinder
 from models.leakage import Leakage
+from regexp_holder.in_memory_holder import InMemoryRegexpHolder
 
 
 @pytest.mark.parametrize(
@@ -11,14 +12,19 @@ from models.leakage import Leakage
         (
             re.compile("aab"),
             "aabb",
-            Leakage(matched_pattern="aab", original_message="aabb", pattern="aab"),
+            [
+                Leakage(
+                    matched_pattern="aab", original_message="aabb", pattern="aab"
+                ).model_dump_json()
+            ],
         ),
-        (re.compile("dog"), "cat", None),
+        (re.compile("dog"), "cat", []),
     ],
 )
 def test_regexp_verificator(
     pattern: re.Pattern, data: str, expected_result: Optional[Leakage]
 ):
-    verificator = RegexpLeakFinder(regexp_storage=[pattern])
+    regexp_holder = InMemoryRegexpHolder(storage=[pattern])
+    verificator = RegexpLeakFinder(regexp_holder=regexp_holder)
     result = verificator.check_for_leaks(data)
     assert result == expected_result

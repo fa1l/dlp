@@ -9,16 +9,22 @@ from leak_finder.regexp import RegexpLeakFinder
 from models.leakage import Leakage
 from storage.in_memory_storage import InMemoryLeakStorage
 
+from pydantic import BaseModel
+
+
+class Data(BaseModel):
+    data: str
+
 
 router = APIRouter()
 
 
 @router.post("/check_for_leaks")
 def check_for_leaks(
-    payload: str, deps_container: Annotated[Container, Depends(create_container)]
+    payload: Data, deps_container: Annotated[Container, Depends(create_container)]
 ):
     task = LeakFinderTask(deps_container.resolve(RegexpLeakFinder)).apply_async(
-        [payload]
+        [payload.data]
     )
     result = task.get()
     if result is not None:
