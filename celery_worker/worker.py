@@ -8,7 +8,7 @@ from leak_finder.regexp import RegexpLeakFinder
 
 def create_celery_app(container: Container, settings: CelerySettings) -> Celery:
     celery_app = Celery(__name__)
-    celery_app.conf.broker_url = settings.broker_url
-    celery_app.conf.result_backend = settings.result_backend
+    celery_app.conf.broker_url = str(settings.broker_url)
+    celery_app.conf.result_backend = str(settings.result_backend)
     celery_app.register_task(LeakFinderTask(container.resolve(RegexpLeakFinder)))
     return celery_app

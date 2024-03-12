@@ -1038,21 +1038,6 @@ pymysql = ["pymysql"]
 sqlcipher = ["sqlcipher3_binary"]
 
 [[package]]
-name = "sqlmodel"
-version = "0.0.16"
-description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
-optional = false
-python-versions = ">=3.7,<4.0"
-files = [
-    {file = "sqlmodel-0.0.16-py3-none-any.whl", hash = "sha256:b972f5d319580d6c37ecc417881f6ec4d1ad3ed3583d0ac0ed43234a28bf605a"},
-    {file = "sqlmodel-0.0.16.tar.gz", hash = "sha256:966656f18a8e9a2d159eb215b07fb0cf5222acfae3362707ca611848a8a06bd1"},
-]
-
-[package.dependencies]
-pydantic = ">=1.10.13,<3.0.0"
-SQLAlchemy = ">=2.0.0,<2.1.0"
-
-[[package]]
 name = "starlette"
 version = "0.36.3"
 description = "The little ASGI library that shines."
@@ -1121,6 +1106,19 @@ files = [
 ]
 
 [[package]]
+name = "walrus"
+version = "0.9.3"
+description = "walrus"
+optional = false
+python-versions = "*"
+files = [
+    {file = "walrus-0.9.3.tar.gz", hash = "sha256:93a6559b9978ca8429939fb066b3bf944452b5926ae53d1a19f94319c0fdd40b"},
+]
+
+[package.dependencies]
+redis = ">=3.0.0"
+
+[[package]]
 name = "wcwidth"
 version = "0.2.13"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -1168,4 +1166,4 @@ email = ["email-validator"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "6e4ca97eef58e8fd45e262ec88b2c575a954306c6a9d7effb7cd011263b7b5ec"
+content-hash = "38e62f3323ee4b8db22318520d30ebb816083a0418490b981aa4d8c882228323"

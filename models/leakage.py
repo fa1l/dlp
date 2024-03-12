@@ -2,6 +2,6 @@ from pydantic import BaseModel
 
 
 class Leakage(BaseModel):
-    message: str
-    content: str
+    matched_pattern: str
+    original_message: str
     pattern: str

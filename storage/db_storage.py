@@ -2,7 +2,7 @@ from typing import List
 import database
 from database.leak import DBLeakage
 from models.leakage import Leakage
-from sqlmodel import select
+from sqlalchemy import select
 
 from storage.leak_storage import ILeakStorage
 
@@ -10,7 +10,9 @@ from storage.leak_storage import ILeakStorage
 class DBLeakStorage(ILeakStorage):
     def save_leakage_info(self, data: Leakage):
         db_leakage = DBLeakage(
-            message=data.message, content=data.content, pattern=data.pattern
+            message=data.matched_pattern,
+            content=data.original_message,
+            pattern=data.pattern,
         )
         with database.create_session() as session:
             session.add(db_leakage)

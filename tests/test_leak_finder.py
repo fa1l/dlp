@@ -11,7 +11,7 @@ from models.leakage import Leakage
         (
             re.compile("aab"),
             "aabb",
-            Leakage(message="aab", content="aabb", pattern="aab"),
+            Leakage(matched_pattern="aab", original_message="aabb", pattern="aab"),
         ),
         (re.compile("dog"), "cat", None),
     ],
