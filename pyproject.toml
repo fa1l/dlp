@@ -12,7 +12,6 @@ flask-admin = "^1.6.1"
 flask = "^3.0.2"
 independency = "^1.2"
 pydantic = "^2.6.3"
-sqlmodel = "^0.0.16"
 pytest = "^8.1.1"
 fastapi = "^0.110.0"
 pydantic-settings = "^2.2.1"
@@ -21,6 +20,7 @@ alembic = "^1.13.1"
 celery = {extras = ["redis"], version = "^5.3.6"}
 slack-bolt = "^1.18.1"
 uvicorn = "^0.28.0"
+flask-sqlalchemy = "^3.1.1"
 
 
 [build-system]

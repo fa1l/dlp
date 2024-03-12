@@ -1,6 +1,6 @@
 from typing import List
-import db
-from db.leak import DBLeakage
+import database
+from database.leak import DBLeakage
 from models.leakage import Leakage
 from sqlmodel import select
 
@@ -12,11 +12,11 @@ class DBLeakStorage(ILeakStorage):
         db_leakage = DBLeakage(
             message=data.message, content=data.content, pattern=data.pattern
         )
-        with db.create_session() as session:
+        with database.create_session() as session:
             session.add(db_leakage)
 
     def get_all_leakeges(self) -> List[Leakage]:
-        with db.create_session() as session:
+        with database.create_session() as session:
             statement = select(DBLeakage)
             db_leakages = session.exec(statement).all()
             result = [
