@@ -3,7 +3,7 @@ from flask_admin.contrib import sqla
 from sqlalchemy import select
 
 from database.regexp_rule import DBRegexpRule
-from regexp_getter.redis_getter import RedisRegexpGetter
+from regexp_holder.redis_holder import RedisRegexpHolder
 
 
 class RegexpView(sqla.ModelView):
@@ -20,7 +20,7 @@ class RegexpView(sqla.ModelView):
     create_modal = True
     edit_modal = True
 
-    def add_redis(self, redis: RedisRegexpGetter):
+    def add_redis(self, redis: RedisRegexpHolder):
         self.redis_db = redis
 
     def after_model_change(self, form, model, is_created):

@@ -3,11 +3,11 @@ import re
 from typing import List
 from walrus import Database
 
-from regexp_getter.getter import IRegexpGetter
-from regexp_getter.settings import RedisRegexpSettings
+from regexp_holder.holder import IRegexpHolder
+from regexp_holder.settings import RedisRegexpSettings
 
 
-class RedisRegexpGetter(IRegexpGetter):
+class RedisRegexpHolder(IRegexpHolder):
     db: Database
     regexp_key: str
 

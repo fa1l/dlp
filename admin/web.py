@@ -5,7 +5,7 @@ from database import Session, DBLeakage, DBRegexpRule
 from database.settings import DBSettings
 from independency import Container
 
-from regexp_getter.redis_getter import RedisRegexpGetter
+from regexp_holder.redis_holder import RedisRegexpHolder
 
 
 def home_page() -> str:
@@ -23,7 +23,7 @@ def create_admin(db_settings: DBSettings, container: Container):
 
     admin = Admin(app, name="dlp_admin", template_mode="bootstrap4")
     regexp_view = RegexpView(DBRegexpRule, session)
-    regexp_view.add_redis(container.resolve(RedisRegexpGetter))
+    regexp_view.add_redis(container.resolve(RedisRegexpHolder))
     admin.add_view(regexp_view)
     admin.add_view(LeakageView(DBLeakage, session))
     return app
