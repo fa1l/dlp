@@ -17,10 +17,10 @@ router = APIRouter()
 def check_for_leaks(
     payload: str, deps_container: Annotated[Container, Depends(create_container)]
 ):
-    response = LeakFinderTask(deps_container.resolve(RegexpLeakFinder)).apply_async(
+    task = LeakFinderTask(deps_container.resolve(RegexpLeakFinder)).apply_async(
         [payload]
     )
-    result = response.get()
+    result = task.get()
     if result is not None:
         storage = deps_container.resolve(InMemoryLeakStorage)
         for data in result:
